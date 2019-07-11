@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1.mb-3.text-center Login Page
+    .row.justify-content-center
+        .col-md-8.mb-4
+            form(method='POST' action='/auth/login')
+                .form-group
+                    label(for='inputId') ID
+                    input#inputId.form-control(type='text' aria-describedby='ID' name='id')
+                .form-group.mb-4
+                    label(for='inputPassword') Password
+                    input(type='password' name='password')#inputPassword.form-control
+                button(type='submit').btn.btn-lg.btn-block.btn-outline-success Login
+        .col-md-8
+            .text-right
+                a(href="/auth/signup").text-black-50 Create an Account

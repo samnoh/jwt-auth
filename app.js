@@ -3,7 +3,8 @@ const path = require('path');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('routes/index');
+const authRouter = require('routes/auth');
 
 const app = express();
 
@@ -13,9 +14,12 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/auth', authRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
@@ -28,7 +32,7 @@ app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error', { title: `Error | ${err.status}` });
 });
 
 app.listen(app.get('port'), () => {
