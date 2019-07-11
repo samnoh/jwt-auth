@@ -1,11 +1,10 @@
 const express = require('express');
+const authController = require('controllers/auth.js');
 
 const router = express.Router();
 
 // GET /auth/login -> Login Page
-router.get('/login', (req, res) => {
-    res.render('login', { title: 'Login' });
-});
+router.get('/login', authController.getLogin);
 
 // POST / -> Attemp Login
 /*
@@ -14,18 +13,18 @@ router.get('/login', (req, res) => {
     password
 }
 */
-router.post('/login', (req, res) => {
-    console.log(req.body);
-    res.redirect('/');
-});
+router.post('/login', authController.postLogin);
 
-router.get('/signup', (req, res) => {
-    res.render('signup', { title: 'Register' });
-});
+// GET /auth/signup -> Signup Page
+router.get('/signup', authController.getSignup);
 
-router.post('/signup', (req, res) => {
-    console.log(req.body);
-    res.redirect('/');
-});
+// POST / -> Attemp Signup
+/*
+{
+    id,
+    password
+}
+*/
+router.post('/signup', authController.postSignup);
 
 module.exports = router;
