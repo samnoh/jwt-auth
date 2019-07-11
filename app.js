@@ -3,10 +3,12 @@ const path = require('path');
 const morgan = require('morgan');
 require('dotenv').config();
 
+const connect = require('./models');
 const indexRouter = require('routes/index');
 const authRouter = require('routes/auth');
 
 const app = express();
+connect();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
