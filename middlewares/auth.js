@@ -11,8 +11,8 @@ exports.isLoggedIn = (req, res, next) => {
         req.decoded = jwt.verify(token, process.env.JWT_SECRET);
         next();
     } catch (e) {
-        console.error(e);
-        next(e);
+        req.flash('loginError', e.name);
+        return res.redirect('/auth/login');
     }
 };
 
