@@ -1,10 +1,11 @@
 const express = require('express');
-const authController = require('controllers/auth.js');
+const authController = require('controllers/auth');
+const authMiddleware = require('middlewares/auth');
 
 const router = express.Router();
 
 // GET /auth/login -> Login Page
-router.get('/login', authController.getLogin);
+router.get('/login', authMiddleware.isNotLoggedIn, authController.getLogin);
 
 // POST / -> Attemp Login
 /*
@@ -13,10 +14,10 @@ router.get('/login', authController.getLogin);
     password
 }
 */
-router.post('/login', authController.postLogin);
+router.post('/login', authMiddleware.isNotLoggedIn, authController.postLogin);
 
 // GET /auth/signup -> Signup Page
-router.get('/signup', authController.getSignup);
+router.get('/signup', authMiddleware.isNotLoggedIn, authController.getSignup);
 
 // POST / -> Attemp Signup
 /*
@@ -25,6 +26,6 @@ router.get('/signup', authController.getSignup);
     password
 }
 */
-router.post('/signup', authController.postSignup);
+router.post('/signup', authMiddleware.isNotLoggedIn, authController.postSignup);
 
 module.exports = router;

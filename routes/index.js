@@ -1,14 +1,13 @@
 const express = require('express');
+const indexController = require('controllers/index');
+const authMiddleware = require('middlewares/auth');
 
 const router = express.Router();
 
 // GET / -> Landing Page
-router.get('/', (req, res, next) => {
-    res.render('main', { title: 'Main' });
-});
+router.get('/', indexController.getLanding);
 
-router.get('/secret', (req, res, next) => {
-    res.render('secret', { title: 'Secret' });
-});
+// GET / -> Secret Page
+router.get('/secret', authMiddleware.isLoggedIn, indexController.getSecret);
 
 module.exports = router;

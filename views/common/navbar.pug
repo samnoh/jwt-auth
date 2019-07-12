@@ -1,5 +1,5 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-    a.navbar-brand(href='/').text-center JWT Demo
+    a.navbar-brand(href='/') JWT Demo
     button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
@@ -8,6 +8,13 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                 a.nav-link(href='/') Home
             li.nav-item(class=(title === 'Secret' && 'active'))
                 a.nav-link(href='/secret') Secret
-        ul.navbar-nav.ml-auto.text-right.mr-3
-            li.nav-item(class=(title === 'Login' && 'active'))
-                a.nav-link(href='/auth/login') Login
+        if !user
+            ul.navbar-nav.ml-auto.text-right.mr-3
+                li.nav-item(class=(title === 'Login' && 'active'))
+                    a.nav-link(href='/auth/login') Login
+                li.nav-item(class=(title === 'Register' && 'active'))
+                    a.nav-link(href='/auth/signup') Register
+        else
+            ul.navbar-nav.ml-auto.text-right.mr-3
+                li.nav-item
+                    a.nav-link(href='/auth/login') Logout
