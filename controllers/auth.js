@@ -18,8 +18,7 @@ exports.postLogin = async (req, res) => {
         return res.redirect('/auth/login');
     }
 
-    const id = mongoSanitizer(req.body.id);
-    const password = mongoSanitizer(req.body.password);
+    const { id, password } = mongoSanitizer(req.body);
 
     try {
         const exUser = await User.findOne({ userId: id });
@@ -60,10 +59,7 @@ exports.postSignup = async (req, res) => {
         return res.redirect('/auth/signup');
     }
 
-    const id = mongoSanitizer(req.body.id);
-    const password = mongoSanitizer(req.body.password);
-    const name = mongoSanitizer(req.body.name);
-    const email = mongoSanitizer(req.body.email);
+    const { id, password, name, email } = mongoSanitizer(req.body);
 
     try {
         const exUser = await User.findOne({ userId: id });
