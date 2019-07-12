@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const csurf = require('csurf');
 const hpp = require('hpp');
 const helmet = require('helmet');
 require('dotenv').config();
@@ -13,6 +14,7 @@ const indexRouter = require('routes/index');
 const authRouter = require('routes/auth');
 const profileRouter = require('routes/profile');
 const errorRouter = require('routes/error');
+const errorMiddleware = require('middlewares/error');
 
 const prod = process.env.NODE_ENV === 'production';
 const app = express();
@@ -48,6 +50,16 @@ app.use(
     })
 );
 app.use(flash());
+app.use(
+    csurf({
+        cookie: {
+            key: '_csrf',
+            httpOnly: true,
+            secure: prod
+        }
+    })
+);
+app.use(errorMiddleware.handleCsrfError);
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

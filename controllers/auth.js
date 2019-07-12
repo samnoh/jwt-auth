@@ -9,7 +9,8 @@ const prod = process.env.NODE_ENV === 'production';
 exports.getLogin = (req, res) => {
     res.render('login', {
         title: 'Login',
-        loginError: req.flash('loginError')[0]
+        loginError: req.flash('loginError')[0],
+        csrfToken: req.csrfToken()
     });
 };
 
