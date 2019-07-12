@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('models/user');
 const mongoSanitizer = require('utils/sanitizer');
 
+const prod = process.env.NODE_ENV === 'production';
+
 exports.getLogin = (req, res) => {
     res.render('login', {
         title: 'Login',
@@ -42,7 +44,7 @@ exports.postLogin = async (req, res) => {
             }
         );
 
-        return res.cookie('token', signedToken).redirect('/');
+        return res.cookie('token', signedToken, { httpOnly: true, secure: prod }).redirect('/');
     } catch (e) {
         console.error(e);
         next(e);
