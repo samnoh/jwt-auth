@@ -52,7 +52,11 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getSignup = (req, res) => {
-    res.render('signup', { title: 'Register', signupError: req.flash('signupError')[0] });
+    res.render('signup', {
+        title: 'Register',
+        signupError: req.flash('signupError')[0],
+        csrfToken: req.csrfToken()
+    });
 };
 
 exports.postSignup = async (req, res) => {
