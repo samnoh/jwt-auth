@@ -73,6 +73,7 @@ exports.postSignup = async (req, res) => {
         }
 
         const hash = await bcrypt.hash(password, 12);
+
         await User.create({ name, email, userId: id, password: hash });
 
         return res.redirect('/');
