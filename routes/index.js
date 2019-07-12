@@ -7,7 +7,7 @@ const router = express.Router();
 // GET / -> Landing Page
 router.get('/', authMiddleware.verifyToken, indexController.getLanding);
 
-// GET / -> Secret Page
+// GET /secret -> Secret Page
 router.get(
     '/secret',
     authMiddleware.verifyToken,

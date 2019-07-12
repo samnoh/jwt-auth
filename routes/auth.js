@@ -28,6 +28,7 @@ router.get('/signup', authMiddleware.isNotLoggedIn, authController.getSignup);
 */
 router.post('/signup', authMiddleware.isNotLoggedIn, authController.postSignup);
 
+// GET /auth/logout -> Attemp Logout
 router.get('/logout', authMiddleware.isLoggedIn, authController.getLogout);
 
 module.exports = router;
