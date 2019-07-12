@@ -16,6 +16,7 @@ exports.getLogin = (req, res) => {
 
 exports.postLogin = async (req, res) => {
     if (!req.body.id || !req.body.password) {
+        req.flash('loginError', 'Please enter a valid ID and password');
         return res.redirect('/auth/login');
     }
 
