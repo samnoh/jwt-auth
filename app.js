@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const hpp = require('hpp');
+const helmet = require('helmet');
 require('dotenv').config();
 
 const connect = require('models');
@@ -11,6 +13,7 @@ const indexRouter = require('routes/index');
 const authRouter = require('routes/auth');
 const errorRouter = require('routes/error');
 
+const prod = process.env.NODE_ENV === 'production';
 const app = express();
 connect();
 
@@ -18,7 +21,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 3000);
 
-app.use(morgan('dev'));
+if (prod) {
+    app.use(hpp());
+    app.use(helmet());
+    app.use(morgan('short'));
+} else {
+    app.use(morgan('dev'));
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
@@ -31,7 +41,7 @@ app.use(
         secret: process.env.COOKIE_SECRET,
         cookie: {
             httpOnly: true,
-            secure: false
+            secure: prod
         },
         name: 'jwt-auth-demo'
     })
