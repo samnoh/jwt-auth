@@ -28,4 +28,6 @@ router.get('/signup', authMiddleware.isNotLoggedIn, authController.getSignup);
 */
 router.post('/signup', authMiddleware.isNotLoggedIn, authController.postSignup);
 
+router.get('/logout', authMiddleware.isLoggedIn, authController.getLogout);
+
 module.exports = router;

@@ -4,6 +4,11 @@ block content
     h1.mb-5.text-center Login Page
     hr.mb-5
     .row.justify-content-center
+        if loginError
+            .col-md-8.mb-4
+                .alert.alert-danger(role='alert')= loginError
+                    button.close(type='button' data-dismiss='alert' aria-label='Close')
+                        span(aria-hidden='true') &times;
         .col-md-8.mb-4
             form(method='POST' action='/auth/login')
                 .form-group
