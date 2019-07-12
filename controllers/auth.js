@@ -38,12 +38,11 @@ exports.postLogin = async (req, res) => {
             },
             process.env.JWT_SECRET,
             {
-                expiresIn: 60 * 60 * 1000,
                 issuer: 'jwt-auth-demo'
             }
         );
 
-        return res.cookie('token', signedToken, { maxAge: 60 * 60 * 1000 }).redirect('/');
+        return res.cookie('token', signedToken).redirect('/');
     } catch (e) {
         console.error(e);
         next(e);
