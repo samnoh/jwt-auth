@@ -1,0 +1,21 @@
+extends common/layout
+
+block content
+    .text-center.mb-5
+        h1 Profile Page - #{user.id}
+    hr.mb-5
+    .row.justify-content-center
+        .col-md-8.mb-4
+            ul.list-group
+                li.list-group-item
+                    span.text-primary Name:
+                    |  #{exUser.name}
+                li.list-group-item
+                    span.text-primary Email:
+                    |  #{exUser.email}
+                li.list-group-item
+                    span.text-primary ID:
+                    |  #{exUser.userId}
+                li.list-group-item
+                    span.text-primary Internal ID:
+                    |  #{exUser._id}

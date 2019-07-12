@@ -16,7 +16,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                     a.nav-link(href='/auth/signup') Register
         else
             ul.navbar-nav.ml-auto.text-right.mr-3
-                li.nav-item
+                li.nav-item(class=(title === 'Profile | ' + user.id && 'active'))
                     a.nav-link(href='/profile/' + user.id)= user.id
             ul.navbar-nav.text-right.mr-3
                 li.nav-item

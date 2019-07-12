@@ -10,14 +10,14 @@ block content
                     button.close(type='button' data-dismiss='alert' aria-label='Close')
                         span(aria-hidden='true') &times;
         .col-md-8.mb-4
-            form(method='POST' action='/auth/login')
+            form(action='/auth/login' method='POST')
                 .form-group
                     label(for='inputId') ID
-                    input#inputId.form-control(type='text' aria-describedby='ID' name='id')
+                    input#inputId.form-control(type='text' name='id')
                 .form-group.mb-4
                     label(for='inputPassword') Password
-                    input(type='password' name='password')#inputPassword.form-control
-                button(type='submit').btn.btn-lg.btn-block.btn-outline-success Login
+                    input#inputPassword.form-control(type='password' name='password')
+                button.btn.btn-lg.btn-block.btn-outline-success(type='submit') Login
         .col-md-8
             .text-right
                 a(href="/auth/signup").text-black-50 Create an Account

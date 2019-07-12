@@ -9,12 +9,18 @@ block content
                 .alert.alert-danger(role='alert')= signupError
                     button.close(type='button' data-dismiss='alert' aria-label='Close')
                         span(aria-hidden='true') &times;
-        .col-md-8.mb-4
+        .col-md-8.mb-5
             form(method='POST' action='/auth/signup')
                 .form-group
+                    label(for='inputName') Name
+                    input#inputName.form-control(type='text' name='name' required)
+                .form-group
+                    label(for='inputEmail') Email
+                    input#inputEmail.form-control(type='email' name='email' required)
+                .form-group
                     label(for='inputId') ID
-                    input#inputId.form-control(type='text' aria-describedby='ID' name='id' required)
-                .form-group.mb-4
+                    input#inputId.form-control(type='text' name='id' required)
+                .form-group
                     label(for='inputPassword') Password
-                    input(type='password' name='password' required)#inputPassword.form-control
+                    input#inputPassword.form-control(type='password' name='password' required)
                 button(type='submit').btn.btn-lg.btn-block.btn-outline-primary Register

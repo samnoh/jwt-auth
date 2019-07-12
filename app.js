@@ -11,6 +11,7 @@ require('dotenv').config();
 const connect = require('models');
 const indexRouter = require('routes/index');
 const authRouter = require('routes/auth');
+const profileRouter = require('routes/profile');
 const errorRouter = require('routes/error');
 
 const prod = process.env.NODE_ENV === 'production';
@@ -50,6 +51,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/profile', profileRouter);
 app.use(errorRouter);
 
 app.listen(app.get('port'), () => {

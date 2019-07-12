@@ -56,12 +56,14 @@ exports.getSignup = (req, res) => {
 };
 
 exports.postSignup = async (req, res) => {
-    if (!req.body.id || !req.body.password) {
+    if (!req.body.id || !req.body.password || !req.body.name || !req.body.email) {
         return res.redirect('/auth/signup');
     }
 
     const id = mongoSanitizer(req.body.id);
     const password = mongoSanitizer(req.body.password);
+    const name = mongoSanitizer(req.body.name);
+    const email = mongoSanitizer(req.body.email);
 
     try {
         const exUser = await User.findOne({ userId: id });
@@ -71,7 +73,7 @@ exports.postSignup = async (req, res) => {
         }
 
         const hash = await bcrypt.hash(password, 12);
-        await User.create({ userId: id, password: hash });
+        await User.create({ name, email, userId: id, password: hash });
 
         return res.redirect('/');
     } catch (e) {
