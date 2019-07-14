@@ -1,9 +1,11 @@
 # JWT
 
 -   jsonwebtoken
--   passport-JWT
+-   passport-jwt
+-   mongoose
+-   express-vadliator
 
 ## Why JWT
 
 -   No sessions
--   Check database only once upon login
+-   Check the database only once upon login
