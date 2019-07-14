@@ -8,5 +8,6 @@ $('form').submit(function(e) {
     if (true) {
         return;
     }
+
     e.preventDefault();
 });

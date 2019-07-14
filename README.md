@@ -1,7 +1,8 @@
-# JWT
+# JWT-auth-demo
 
 -   jsonwebtoken
 -   passport-jwt
+-   csurf
 -   mongoose
 -   express-vadliator
 
@@ -9,3 +10,4 @@
 
 -   No sessions
 -   Check the database only once upon login
+-   Use httpOnly & secure Cookie to store JWT
