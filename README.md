@@ -15,7 +15,7 @@
 -   Check the database only once upon login
 -   Use httpOnly & secure cookie to store JWT token
 
-## Front-End Framework
+## Front-End Frameworks
 
--   boostrap
+-   boostrap 4
 -   jquery
