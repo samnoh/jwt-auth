@@ -1,43 +1,52 @@
-const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 exports.isLoggedIn = (req, res, next) => {
-    const { token } = req.cookies;
-
-    if (!token) {
-        return res.redirect('/auth/login');
+    if (req.cookies['token']) {
+        return next();
     }
-
-    try {
-        req.decoded = jwt.verify(token, process.env.JWT_SECRET);
-        next();
-    } catch (e) {
-        req.flash('loginError', e.name);
-        return res.redirect('/auth/login');
-    }
+    res.redirect('/auth/login');
 };
 
 exports.isNotLoggedIn = (req, res, next) => {
-    const { token } = req.cookies;
-
-    if (!token) {
+    if (!req.cookies['token']) {
         return next();
     }
+    res.redirect('/');
+};
 
-    try {
-        req.decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return res.redirect(req.headers.referer);
-    } catch (e) {
+exports.verifyLogin = (req, res, next) => {
+    passport.authenticate('local', { session: false }, (authError, user, info) => {
+        if (authError) {
+            console.error(authError);
+            return next(authError);
+        }
+
+        if (info) {
+            return next(info);
+        }
+
+        req.payload = { id: user.userId }; // set jwt token
         next();
-    }
+    })(req, res, next);
 };
 
 exports.verifyToken = (req, res, next) => {
-    const { token } = req.cookies;
-
-    try {
-        res.locals.user = jwt.verify(token, process.env.JWT_SECRET);
-        next();
-    } catch (e) {
-        next();
+    if (!req.cookies['token']) {
+        return next();
     }
+
+    passport.authenticate('jwt', { session: false }, (authError, user, info) => {
+        if (authError) {
+            console.error(authError);
+            return next(authError);
+        }
+
+        if (info) {
+            console.error(info.message);
+            return next(info);
+        }
+
+        res.locals.user = user;
+        next();
+    })(req, res, next);
 };

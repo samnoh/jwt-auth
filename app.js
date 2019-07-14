@@ -2,14 +2,14 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const flash = require('connect-flash');
+const passport = require('passport');
 const csurf = require('csurf');
 const hpp = require('hpp');
 const helmet = require('helmet');
 require('dotenv').config();
 
 const connect = require('models');
+const passportConfig = require('./passport');
 const indexRouter = require('routes/index');
 const authRouter = require('routes/auth');
 const profileRouter = require('routes/profile');
@@ -19,6 +19,7 @@ const errorMiddleware = require('middlewares/error');
 const prod = process.env.NODE_ENV === 'production';
 const app = express();
 connect();
+passportConfig(passport);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -38,19 +39,6 @@ app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
-    session({
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.COOKIE_SECRET,
-        cookie: {
-            httpOnly: true,
-            secure: prod
-        },
-        name: 'jwt-auth-demo'
-    })
-);
-app.use(flash());
-app.use(
     csurf({
         cookie: {
             key: '_csrf',
@@ -59,12 +47,15 @@ app.use(
         }
     })
 );
-app.use(errorMiddleware.handleCsrfError);
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
 app.use(errorRouter);
+
+app.use(errorMiddleware.handleCsrfError);
+app.use(errorMiddleware.handleError);
 
 app.listen(app.get('port'), () => {
     console.log(`Server is running on ${app.get('port')}...`);

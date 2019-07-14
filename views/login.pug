@@ -4,16 +4,11 @@ block content
     h1.mb-5.text-center Login Page
     hr.mb-5
     .row.justify-content-center
-        if loginError
-            .col-md-8.mb-4
-                .alert.alert-danger(role='alert')= loginError
-                    button.close(type='button' data-dismiss='alert' aria-label='Close')
-                        span(aria-hidden='true') &times;
         .col-md-8.mb-4
             form(action='/auth/login' method='POST')
                 .form-group
                     label(for='inputId') ID
-                    input#inputId.form-control(type='text' name='id' required)
+                    input#inputId.form-control(type='text' name='userId' required)
                 .form-group.mb-5
                     label(for='inputPassword') Password
                     input#inputPassword.form-control(type='password' name='password' required)

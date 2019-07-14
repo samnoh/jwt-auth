@@ -4,11 +4,6 @@ block content
     h1.mb-5.text-center Register Page
     hr.mb-5
     .row.justify-content-center
-        if signupError
-            .col-md-8.mb-4
-                .alert.alert-danger(role='alert')= signupError
-                    button.close(type='button' data-dismiss='alert' aria-label='Close')
-                        span(aria-hidden='true') &times;
         .col-md-8.mb-5
             form(method='POST' action='/auth/signup')
                 .form-group
