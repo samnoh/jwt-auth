@@ -15,7 +15,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 };
 
 exports.verifyLogin = (req, res, next) => {
-    passport.authenticate('local', { session: false }, (authError, user, info) => {
+    passport.authenticate('local', (authError, user, info) => {
         if (authError) {
             console.error(authError);
             return next(authError);
@@ -35,7 +35,7 @@ exports.verifyToken = (req, res, next) => {
         return next();
     }
 
-    passport.authenticate('jwt', { session: false }, (authError, user, info) => {
+    passport.authenticate('jwt', (authError, user, info) => {
         if (authError) {
             console.error(authError);
             return next(authError);

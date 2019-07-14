@@ -6,10 +6,12 @@ const User = require('models/user');
 
 module.exports = () => {
     passport.use(
+        'local',
         new LocalStrategy(
             {
                 usernameField: 'userId',
-                passwordField: 'password'
+                passwordField: 'password',
+                session: false
             },
             async (userId, password, done) => {
                 try {
