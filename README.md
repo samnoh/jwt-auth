@@ -1,6 +1,8 @@
 # JWT-auth-demo
 
 -   jsonwebtoken
+-   passport
+-   passport-local
 -   passport-jwt
 -   csurf
 -   mongoose
@@ -10,4 +12,4 @@
 
 -   No sessions (stateless)
 -   Check the database only once upon login
--   Use httpOnly & secure Cookie to store JWT token
+-   Use httpOnly & secure cookie to store JWT token
