@@ -11,3 +11,5 @@ exports.getProfile = async (req, res) => {
 
     res.render('profile', { title: `Profile | ${id}`, exUser });
 };
+
+exports.postEditProfile = async (req, res) => {};

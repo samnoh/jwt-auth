@@ -4,11 +4,10 @@ const profileController = require('controllers/profile');
 
 const router = express.Router();
 
-router.get(
-    '/:id',
-    authMiddleware.verifyToken,
-    authMiddleware.isLoggedIn,
-    profileController.getProfile
-);
+router.use(authMiddleware.verifyToken);
+
+router.get('/:id', authMiddleware.isLoggedIn, profileController.getProfile);
+
+router.post('/:id', authMiddleware.isLoggedIn, profileController.postEditProfile);
 
 module.exports = router;
