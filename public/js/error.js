@@ -1,9 +1,9 @@
 let seconds = 3;
 
 setTimeout(() => {
-    window.location = '/auth/login';
+    $(location).attr('href', '/auth/login');
 }, seconds * 1000);
 
 setInterval(() => {
-    document.querySelector('#secNum').innerHTML = ' ' + --seconds;
+    $('#secNum').text(' ' + seconds--);
 }, 1000);
