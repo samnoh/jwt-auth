@@ -1,0 +1,25 @@
+extends common/layout
+
+block content
+    .text-center.mb5
+        h1 Profile Update Page
+        h2 #{exUser.userId}
+    hr.mb-5
+    .row.justify-content-center
+        .col-md-8.mb-5
+            form(method='POST' action='/profile/' + exUser.userId +'/edit')
+                .form-group
+                    label(for='inputName') Name
+                    input#inputName.form-control(type='text' name='name' value=exUser.name required)
+                .form-group
+                    label(for='inputEmail') Email
+                    input#inputEmail.form-control(type='email' name='email' value=exUser.email required)
+                .form-group
+                    label(for='inputPassword') Current Password
+                    input#inputPassword.form-control(type='password' name='password' required)
+                .form-group.mb-5
+                    label(for='inputNewPassword') New Password
+                    input#inputNewPassword.form-control(type='password' name='newPassword')
+                input(type='hidden' name='userId' value=exUser.userId)
+                input(type='hidden' name='_csrf' value=csrfToken)
+                button(type='submit').btn.btn-lg.btn-block.btn-outline-info Update

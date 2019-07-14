@@ -50,3 +50,13 @@ exports.verifyToken = (req, res, next) => {
         next();
     })(req, res, next);
 };
+
+exports.verifyParamsId = (req, res, next, id) => {
+    if (id !== res.locals.user.id) {
+        const error = new Error('Forbidden');
+        error.status = 403;
+        next(error);
+    }
+
+    next();
+};

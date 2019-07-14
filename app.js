@@ -19,7 +19,7 @@ const errorMiddleware = require('middlewares/error');
 const prod = process.env.NODE_ENV === 'production';
 const app = express();
 connect();
-passportConfig(passport);
+passportConfig();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

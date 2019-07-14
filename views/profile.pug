@@ -2,7 +2,8 @@ extends common/layout
 
 block content
     .text-center.mb-5
-        h1 Profile Page - #{user.id}
+        h1 Profile Page
+        h2 #{user.id}
     hr.mb-5
     .row.justify-content-center
         .col-md-8.mb-4
@@ -20,4 +21,4 @@ block content
                     span.text-primary Internal ID:
                     |  #{exUser._id}
             .text-right
-                a.btn.btn-info(role='button' href='/auth/edit') Edit
+                a.btn.btn-info(role='button' href='/profile/' + exUser.userId + '/edit') Edit

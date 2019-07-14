@@ -1,15 +1,28 @@
 const User = require('models/user');
+const bcrypt = require('bcrypt');
 
 exports.getProfile = async (req, res) => {
-    const { id } = res.locals.user;
-
-    if (req.params.id !== id) {
-        return res.redirect(`/profile/${id}`);
-    }
-
+    const { id } = req.params;
     const exUser = await User.findOne({ userId: id }).select({ password: 0 });
 
     res.render('profile', { title: `Profile | ${id}`, exUser });
 };
 
-exports.postEditProfile = async (req, res) => {};
+exports.getEditProfile = async (req, res) => {
+    const { id } = req.params;
+
+    const exUser = await User.findOne({ userId: id }).select({ password: 0 });
+
+    res.render('editProfile', { title: `Profile | ${id}`, exUser, csrfToken: req.csrfToken() });
+};
+
+exports.postEditProfile = async (req, res, next) => {
+    const { id } = req.params;
+    const { name, email, newPassword } = req.body;
+
+    const { password } = await User.findOne({ userId: id });
+    const hash = await bcrypt.hash(newPassword, 12);
+
+    await User.updateOne({ userId: id }, { name, email, password: newPassword ? hash : password });
+    res.redirect(`/profile/${id}`);
+};
