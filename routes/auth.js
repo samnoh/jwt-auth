@@ -1,7 +1,8 @@
 const express = require('express');
+const { check, sanitizeBody } = require('express-validator');
+
 const authController = require('controllers/auth');
 const authMiddleware = require('middlewares/auth');
-const { check, sanitizeBody } = require('express-validator');
 
 const router = express.Router();
 
