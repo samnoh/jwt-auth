@@ -10,10 +10,22 @@ router.use(authMiddleware.verifyToken, authMiddleware.isLoggedIn);
 
 router.param('id', authMiddleware.verifyParamsId);
 
+// GET /profile/:id -> Profile Page
 router.get('/:id', profileController.getProfile);
 
+// GET /profile/:id/edit -> Edit Profile Page
 router.get('/:id/edit', profileController.getEditProfile);
 
+// POST /profile/:id/edit -> Modify Profile
+/*
+{
+    name,
+    email,
+    password,
+    newPassword,
+    userId (hidden)
+}
+*/
 router.post(
     '/:id/edit',
     [
@@ -33,7 +45,12 @@ router.post(
             .not()
             .isEmpty()
             .isLength({ min: 3 })
-            .withMessage('Password must have more than 3 characters')
+            .withMessage('Password must have more than 3 characters'),
+        check('newPassword')
+            .not()
+            .isEmpty()
+            .isLength({ min: 3 })
+            .withMessage('New Password must have more than 3 characters')
     ],
     sanitizeBody('*')
         .escape()
