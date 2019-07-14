@@ -5,4 +5,10 @@ block content
         h1= message
         h2.text-danger= error.status
     hr.mb-5
+    p After
+        span#secNum  5
+        |  seconds, redirect to home page.
     pre.text-black-50 #{error.stack}
+
+block script
+    script(src='/js/error.js')
