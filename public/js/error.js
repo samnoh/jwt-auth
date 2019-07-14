@@ -5,5 +5,5 @@ setTimeout(() => {
 }, seconds * 1000);
 
 setInterval(() => {
-    $('#secNum').text(' ' + seconds--);
+    $('#secNum').text(' ' + --seconds);
 }, 1000);
