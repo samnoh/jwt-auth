@@ -74,3 +74,7 @@ router.get('/', (req, res) => {
     });
 });
 ```
+
+```H
+input(type='hidden' name='_csrf' value=csrfToken)
+```
