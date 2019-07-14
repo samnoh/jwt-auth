@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
 
 const User = require('models/user');
-const mongoSanitizer = require('utils/sanitizer');
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -15,6 +15,11 @@ exports.getLogin = (req, res) => {
 
 exports.postLogin = (req, res, next) => {
     const { payload } = req;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next({ message: errors.errors.map(e => e.msg).join(', ') });
+    }
 
     req.login(payload, { session: false }, async loginError => {
         if (loginError) {
@@ -39,7 +44,7 @@ exports.postSignup = async (req, res) => {
         return res.redirect('/auth/signup');
     }
 
-    const { id, password, name, email } = mongoSanitizer(req.body);
+    const { id, password, name, email } = req.body;
 
     try {
         const exUser = await User.findOne({ userId: id });

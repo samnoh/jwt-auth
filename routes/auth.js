@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('controllers/auth');
 const authMiddleware = require('middlewares/auth');
+const { check, sanitizeBody } = require('express-validator');
 
 const router = express.Router();
 
@@ -16,6 +17,17 @@ router.get('/login', authMiddleware.isNotLoggedIn, authController.getLogin);
 */
 router.post(
     '/login',
+    [
+        check('userId')
+            .not()
+            .isEmpty(),
+        check('password')
+            .not()
+            .isEmpty()
+            .isLength({ min: 3 })
+            .withMessage('Password must have more than 3 characters')
+    ],
+    sanitizeBody('*'),
     authMiddleware.isNotLoggedIn,
     authMiddleware.verifyLogin,
     authController.postLogin
@@ -31,7 +43,33 @@ router.get('/signup', authMiddleware.isNotLoggedIn, authController.getSignup);
     password
 }
 */
-router.post('/signup', authMiddleware.isNotLoggedIn, authController.postSignup);
+router.post(
+    '/signup',
+    [
+        check('userId')
+            .not()
+            .isEmpty(),
+        check('password')
+            .not()
+            .isEmpty()
+            .isLength({ min: 3 })
+            .withMessage('Password must have more than 3 characters'),
+        check('email')
+            .not()
+            .isEmpty()
+            .isEmail()
+            .normalizeEmail()
+            .withMessage('Email must be valid'),
+        check('name')
+            .not()
+            .isEmpty()
+    ],
+    sanitizeBody('*')
+        .escape()
+        .blacklist('${}'),
+    authMiddleware.isNotLoggedIn,
+    authController.postSignup
+);
 
 // GET /auth/logout -> Attempt Logout
 router.get('/logout', authMiddleware.isLoggedIn, authController.getLogout);
