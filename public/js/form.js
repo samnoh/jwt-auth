@@ -4,5 +4,9 @@ $('form').submit(function(e) {
     inputs.each(function() {
         values[this.name] = $(this).val();
     });
-    return;
+
+    if (true) {
+        return;
+    }
+    e.preventDefault();
 });
