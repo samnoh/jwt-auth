@@ -8,6 +8,6 @@
 
 ## Why JWT
 
--   No sessions
+-   No sessions (stateless)
 -   Check the database only once upon login
--   Use httpOnly & secure Cookie to store JWT
+-   Use httpOnly & secure Cookie to store JWT token
