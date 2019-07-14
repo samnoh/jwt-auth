@@ -27,7 +27,9 @@ router.post(
             .isLength({ min: 3 })
             .withMessage('Password must have more than 3 characters')
     ],
-    sanitizeBody('*'),
+    sanitizeBody('*')
+        .escape()
+        .blacklist('${}'),
     authMiddleware.isNotLoggedIn,
     authMiddleware.verifyLogin,
     authController.postLogin
