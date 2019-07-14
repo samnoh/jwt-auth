@@ -24,7 +24,7 @@
 
 ### router.param
 
--   middleware for handling req.param
+-   middleware for handling req.params
 
 ```JavaScript
 router.param('id', (req, res, next, id) => {
@@ -55,6 +55,8 @@ passport.authenticate('name', (authError, user, info) => {
 
 ### csurf
 
+-   CSRF protection
+
 ```JavaScript
 app.use(
     csurf({
@@ -75,6 +77,38 @@ router.get('/', (req, res) => {
 });
 ```
 
-```H
+```PUG
 input(type='hidden' name='_csrf' value=csrfToken)
+```
+
+### express-validator
+
+-   check
+-   sanitize
+
+```JavaScript
+const { check, sanitizeBody } = require('express-validator');
+
+router.post(
+    '/signup',
+    [
+        check('email')
+            .not()
+            .isEmpty()
+            .isEmail()
+            .normalizeEmail()
+            .withMessage('Email must be valid'),
+        check('password')
+            .not()
+            .isEmpty()
+            .isLength({ min: 3 })
+            .withMessage('Password must have more than 3 characters'),
+
+    ],
+    sanitizeBody('*')
+        .escape()
+        .blacklist('${}'),
+    authMiddleware.isNotLoggedIn,
+    authController.postSignup
+);
 ```
