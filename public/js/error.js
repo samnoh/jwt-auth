@@ -1,7 +1,7 @@
-let seconds = 5;
+let seconds = 3;
 
 setTimeout(() => {
-    window.location = '/';
+    window.location = '/auth/login';
 }, seconds * 1000);
 
 setInterval(() => {

@@ -22,7 +22,7 @@ exports.postLogin = (req, res, next) => {
             return next(loginError);
         }
 
-        const token = await jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
+        const token = await jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '14d' });
         res.cookie('token', token, { httpOnly: true, secure: prod }).redirect('/');
     });
 };

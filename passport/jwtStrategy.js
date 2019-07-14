@@ -12,6 +12,7 @@ module.exports = () => {
                 // if (Date.now() > jwtPayload.expires) {
                 //     return done('jwt expired');
                 // }
+
                 return done(null, jwtPayload);
             }
         )
