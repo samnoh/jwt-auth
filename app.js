@@ -26,14 +26,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('port', process.env.PORT || 3000);
 
+app.disable('x-powered-by');
+
 if (prod) {
     app.use(hpp());
     app.use(helmet());
-
     app.use(morgan('short'));
 } else {
     app.use(morgan('dev'));
 }
+
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600 }));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600 }));
