@@ -132,3 +132,17 @@ pm2 start index.js -i 0
 ```Shell
 pm2 kill
 ```
+
+### AWS Lightsail
+
+-   Built-in Apache proxy server
+
+```
+# /opt/bitnami/apache2/conf/bitnami/bitnami-apps-prefix.conf
+ProxyPass / http://127.0.0.1:3000
+ProxyPassReverse / http://127.0.0.1:3000
+```
+
+```Shell
+sudo /opt/bitnami/ctlscript.sh restart apache
+```
