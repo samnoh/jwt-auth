@@ -118,3 +118,17 @@ router.post(
 ```JavaScript
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600 }));
 ```
+
+### PM2
+
+-   cluster mode
+
+```Shell
+pm2 start index.js -i 0
+```
+
+-   kill process
+
+```Shell
+pm2 kill
+```
