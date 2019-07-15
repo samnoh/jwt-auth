@@ -5,7 +5,7 @@
     "private": true,
     "main": "app.js",
     "scripts": {
-        "start": "NODE_PATH=. NODE_ENV=production PORT=80 pm2 start app.js -i 0",
+        "start": "NODE_PATH=. NODE_ENV=production pm2 start app.js -i 0",
         "kill": "pm2 kill",
         "dev": "NODE_PATH=. nodemon app.js"
     },
