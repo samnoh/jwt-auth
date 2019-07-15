@@ -6,6 +6,7 @@ const csurf = require('csurf');
 const passport = require('passport');
 const hpp = require('hpp');
 const helmet = require('helmet');
+const compression = require('compression');
 require('dotenv').config();
 
 const connect = require('models');
@@ -28,20 +29,20 @@ app.set('port', process.env.PORT || 3000);
 if (prod) {
     app.use(hpp());
     app.use(helmet());
+
     app.use(morgan('short'));
 } else {
     app.use(morgan('dev'));
 }
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
+app.use(compression());
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600 }));
+app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600 }));
+app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist'), { maxAge: 31557600 }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
     csurf({
         cookie: {
-            key: '_csrf',
             httpOnly: true,
             secure: prod
         }
