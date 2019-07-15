@@ -133,7 +133,7 @@ pm2 start index.js -i 0
 pm2 kill
 ```
 
-### AWS Lightsail
+### AWS Lightsail - Bitnami
 
 -   Built-in Apache proxy server
 
@@ -146,3 +146,19 @@ ProxyPassReverse / http://127.0.0.1:3000
 ```Shell
 sudo /opt/bitnami/ctlscript.sh restart apache
 ```
+
+-   Redirect HTTP to HTTPS in Apache
+
+```
+# /opt/bitnami/apache2/conf/bitnami/bitnami.conf
+<VirtualHost _default_:80>
+  DocumentRoot "/opt/bitnami/apache2/htdocs"
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^(localhost|127.0.0.1)
+  RewriteRule ^/(.*) https://%{SERVER_NAME}/$1 [R,L]
+  ...
+</VirtualHost>
+```
+
+-
