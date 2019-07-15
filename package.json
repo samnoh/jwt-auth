@@ -5,9 +5,9 @@
     "private": true,
     "main": "app.js",
     "scripts": {
-        "start": "NODE_PATH=. NODE_ENV=production pm2 start app.js -i 0",
+        "start": "NODE_ENV=production pm2 start app.js -i 0",
         "kill": "pm2 kill",
-        "dev": "NODE_PATH=. nodemon app.js"
+        "dev": "nodemon app.js"
     },
     "repository": {
         "type": "git",

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
-const User = require('models/user');
+const User = require('../models/user');
 
 const prod = process.env.NODE_ENV === 'production';
 

@@ -1,5 +1,6 @@
-const User = require('models/user');
 const bcrypt = require('bcrypt');
+
+const User = require('../models/user');
 
 exports.getProfile = async (req, res) => {
     const { id } = req.params;

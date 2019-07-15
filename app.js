@@ -9,13 +9,13 @@ const helmet = require('helmet');
 const compression = require('compression');
 require('dotenv').config();
 
-const connect = require('models');
+const connect = require('./models');
 const passportConfig = require('./passport');
-const indexRouter = require('routes/index');
-const authRouter = require('routes/auth');
-const profileRouter = require('routes/profile');
-const errorRouter = require('routes/error');
-const errorMiddleware = require('middlewares/error');
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
+const errorRouter = require('./routes/error');
+const errorMiddleware = require('./middlewares/error');
 
 const prod = process.env.NODE_ENV === 'production';
 const app = express();
