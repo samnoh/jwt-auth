@@ -31,7 +31,7 @@ app.disable('x-powered-by');
 if (prod) {
     app.use(hpp());
     app.use(helmet());
-    app.use(morgan('short'));
+    app.use(morgan('combined'));
 } else {
     app.use(morgan('dev'));
 }

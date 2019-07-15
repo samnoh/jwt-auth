@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const { MONGO_ID, MONGO_PASSWORD, NODE_ENV } = process.env;
-const MONGO_URL = `mongodb://${MONGO_ID}:${MONGO_PASSWORD}@localhost:27017/admin`;
+const MONGO_URL = `mongodb+srv://${MONGO_ID}:${MONGO_PASSWORD}@m001-wdcbq.mongodb.net/jwt-demo?retryWrites=true&w=majority`;
 
 module.exports = () => {
     const connect = () => {
@@ -11,8 +11,7 @@ module.exports = () => {
         mongoose.connect(
             MONGO_URL,
             {
-                useNewUrlParser: true,
-                dbName: 'jwt-demo'
+                useNewUrlParser: true
             },
             error => {
                 if (error) {
