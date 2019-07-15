@@ -6,6 +6,7 @@ block content
         h2 #{exUser.userId}
     hr.mb-5
     .row.justify-content-center
+        include common/flash.pug
         .col-md-8.mb-5
             form(method='POST' action='/profile/' + exUser.userId +'/edit')
                 .form-group
